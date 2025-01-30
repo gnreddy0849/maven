@@ -46,3 +46,11 @@ steps:
   inputs:
     targetType: 'inline'
     script: java -jar /home/azureuser/myagent/_work/2/s/FunctionalTesting/testing.jar
+- task: KubernetesManifest@1
+  inputs:
+    action: 'deploy'
+    connectionType: 'azureResourceManager'
+    azureSubscriptionConnection: 'Pay-As-You-Go(73477290-a1f0-415f-be2c-d92482bea439)'
+    azureResourceGroup: 'newproject'
+    kubernetesCluster: 'cluster-1'
+    useClusterAdmin: true
