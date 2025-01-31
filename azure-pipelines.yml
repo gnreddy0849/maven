@@ -54,3 +54,4 @@ steps:
     azureResourceGroup: 'newproject'
     kubernetesCluster: 'cluster-1'
     useClusterAdmin: true
+    manifests: 'myapp.yml'
