@@ -28,3 +28,9 @@ steps:
       FROM tomee
       COPY webapp.war /usr/local/tomee/webapp/testapp.war
       EOF
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: cd /home/azureuser;docker build -t intelliqit.azurecr.io/myapp .
+
