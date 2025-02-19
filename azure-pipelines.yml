@@ -14,26 +14,31 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'git clone https://github.com/IntelliqDevops/maven.git'
+
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'cd /home/azureuser/myagent/_work/2/s;mvn package'
+    script: 'cd /home/azureuser/myagent/_work/2/s;mvn package;cp webapp/target/webapp.war /home/azureuser'
+
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
-        cat <<EOF > dockerfile
-        FROM tomee
-        COPY webapp/target/webapp.war /usr/local/tomee/webapps/testapp.war
-        EOF
+      cd /home/azureuser;cat <<EOF > dockerfile
+      FROM tomee
+      COPY webapp.war /usr/local/tomee/webapp/testapp.war
+      EOF
+
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: cd /home/azureuser/myagent/_work/2/s;docker build -t intelliqit.azurecr.io/myapp .
+
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: docker push intelliqit.azurecr.io/myapp
+
 - task: Bash@3
   inputs:
     targetType: 'inline'
@@ -42,10 +47,12 @@ steps:
   inputs:
     targetType: 'inline'
     script: git clone https://github.com/IntelliqDevops/FunctionalTesting.git
+
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: java -jar /home/azureuser/myagent/_work/2/s/FunctionalTesting/testing.jar
+
 - task: Bash@3
   inputs:
     targetType: 'inline'
